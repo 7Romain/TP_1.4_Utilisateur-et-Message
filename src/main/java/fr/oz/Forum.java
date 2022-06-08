@@ -1,38 +1,31 @@
 package fr.oz;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Forum {
     final int NBR_MESSAGES = 9;
     int compteur = 0;
-    MessageUtilisateur[] tablMessage;
+    ArrayList<MessageUtilisateur> tablMessage;
 
     public Forum() {
-        tablMessage = new MessageUtilisateur[NBR_MESSAGES];
+        tablMessage = new ArrayList<MessageUtilisateur>();
     }
 
-    public boolean ajouterUtilisateurMessages(MessageUtilisateur mu) {
-        try {
+    public void ajouterUtilisateurMessages(MessageUtilisateur mu) {
 
-            tablMessage[compteur] = mu;
-        } catch (IndexOutOfBoundsException ioobe) {
-            return false;
-
-        }
-        compteur++;
-        return true;
+        tablMessage.add(mu);
 
     }
 
     String getListeMessageAuteur() {
         String totale = "";
-        for (int i = 0; i < tablMessage.length; i++) {
-            if (!(tablMessage[i] instanceof MessageUtilisateur)) {
-                continue;
-            }
-
-            String tour = String.format("%s%n", tablMessage[i].getMessage());
+        Iterator<MessageUtilisateur> i = tablMessage.iterator();
+        while (i.hasNext()) {
+            String tour = String.format("%s%n", i.next().getMessage());
             totale += tour;
-
         }
+
         return totale;
     }
 
